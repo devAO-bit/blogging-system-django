@@ -1,0 +1,73 @@
+/* Reset some defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('https://www.transparenttextures.com/patterns/white-wall-3.png'),
+              linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+  background-size: cover;
+  background-repeat: repeat;
+  color: #333;
+  line-height: 1.6;
+  padding: 40px 20px;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  /* background: #fff; */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3 {
+  color: #222;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.blog-post {
+  margin-bottom: 40px;
+}
+
+.blog-post p {
+  margin: 10px 0;
+  color: #444;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  background: #e9ecef;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease-in-out;
+}
+
+.back-link:hover {
+  background: #d6d8db;
+}

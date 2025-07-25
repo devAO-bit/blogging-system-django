@@ -1,3 +1,18 @@
-<h1>{{ post.title }}</h1>
-<p>By {{ post.author }} | {{ post.created_at }}</p>
-<div>{{ post.content }}</div>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <div class="meta">By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}</div>
+    <div class="blog-post">
+      {{ post.content|linebreaks }}
+    </div>
+    <a class="back-link" href="{% url 'blog_list' %}">← Back to Blog List</a>
+  </div>
+</body>
+</html>
