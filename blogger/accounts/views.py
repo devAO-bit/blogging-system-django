@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # views here.
 def register_view(request):
@@ -13,7 +15,7 @@ def register_view(request):
             return redirect('register')
         user = User.objects.create_user(username=username, password=password)
         login(request, user)
-        return redirect('blog_list')
+        return HttpResponseRedirect(reverse('blog_list'))
     return render(request, 'accounts/register.html')
 
 def login_view(request):

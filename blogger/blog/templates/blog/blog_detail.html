@@ -1,11 +1,20 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>{{ post.title }}</title>
-    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+  <title>{{ post.title }}</title>
+  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 </head>
+
 <body>
+  {% if user.is_authenticated %}
+  <p style="text-align:right;">
+    Welcome, {{ user.username }} |
+    <a href="{% url 'logout' %}">Logout</a>
+  </p>
+  {% endif %}
+
   <div class="container">
     <h1>{{ post.title }}</h1>
     <div class="meta">By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}</div>
@@ -15,4 +24,5 @@
     <a class="back-link" href="{% url 'blog_list' %}">← Back to Blog List</a>
   </div>
 </body>
+
 </html>

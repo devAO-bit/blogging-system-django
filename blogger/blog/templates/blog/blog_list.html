@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 </head>
 <body>
+  {% if user.is_authenticated %}
+  <p style="text-align:right;">
+    Welcome, {{ user.username }} |
+    <a href="{% url 'logout' %}">Logout</a>
+  </p>
+{% endif %}
+
   <div class="container">
     <h1>📚 All Blog Posts</h1>
     {% for post in posts %}
