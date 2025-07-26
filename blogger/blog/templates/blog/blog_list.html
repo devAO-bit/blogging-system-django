@@ -9,7 +9,8 @@
   {% if user.is_authenticated %}
   <p style="text-align:right;">
     Welcome, {{ user.username }} |
-    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'blog_create' %}">Create New Blog</a>
+    | <a href="{% url 'logout' %}">Logout</a>
   </p>
 {% endif %}
 
