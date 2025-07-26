@@ -22,10 +22,17 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        remember_me = request.POST.get('remember_me')  # Returns 'on' if checked
+
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('blog_list')
+            if remember_me:
+                request.session.set_expiry(1209600)
+            else:
+                request.session.set_expiry(0)
+
+            return HttpResponseRedirect(reverse('blog_list'))
         else:
             messages.error(request, "Invalid credentials.")
             return redirect('login')

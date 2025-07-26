@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Login</title>
   <link rel="stylesheet" href="{% static 'blog/style.css' %}">
@@ -8,6 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 </head>
+
 <body>
   <div class="container">
     <h1>Login</h1>
@@ -17,9 +19,14 @@
       <input type="text" name="username" required><br><br>
       <label>Password:</label><br>
       <input type="password" name="password" required><br><br>
+
+      <label>
+        <input type="checkbox" name="remember_me" checked> Remember Me
+      </label><br><br>
       <button type="submit">Login</button>
     </form>
     <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
   </div>
 </body>
+
 </html>
