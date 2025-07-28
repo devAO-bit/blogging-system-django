@@ -1,14 +1,32 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import BlogPost
+from .models import BlogPost, Category, Tag
 from django.contrib.auth.decorators import login_required
-from .forms import BlogForm 
+from .forms import BlogForm
 
 
 # Create your views here.
 @login_required
 def blog_list(request):
-    posts = BlogPost.objects.filter(is_deleted=False).order_by('-created_at')
-    return render(request, 'blog/blog_list.html', {'posts': posts})
+    blogs = BlogPost.objects.filter(is_deleted=False).order_by('-created_at')
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+
+    category_id = request.GET.get('category')
+    tag_id = request.GET.get('tag')
+
+    if category_id:
+        blogs = blogs.filter(category__id=category_id)
+
+    if tag_id:
+        blogs = blogs.filter(tags__id=tag_id)
+
+    return render(request, 'blog/blog_list.html', {
+        'posts': blogs,
+        'categories': categories,
+        'tags': tags,
+        'selected_category': category_id,
+        'selected_tag': tag_id
+    })
 
 @login_required
 def blog_detail(request, slug):
