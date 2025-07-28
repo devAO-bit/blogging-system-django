@@ -1,18 +1,69 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>All Blogs</title>
-    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+  <meta charset="UTF-8">
+  <title>All Blogs</title>
+  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+  <style>
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .top-bar {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+
+    .top-bar a {
+      margin-left: 1rem;
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f2937;
+      margin-bottom: 2rem;
+    }
+
+    .blog-post {
+      background: white;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .blog-post h2 a {
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .blog-post .meta {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin: 0.5rem 0 1rem;
+    }
+  </style>
 </head>
 <body>
   {% if user.is_authenticated %}
-  <p style="text-align:right;">
-    Welcome, {{ user.username }} |
-    <a href="{% url 'blog_create' %}">Create New Blog</a>
-    | <a href="{% url 'logout' %}">Logout</a>
-  </p>
-{% endif %}
+    <div class="top-bar">
+      Welcome, {{ user.username }} |
+      <a href="{% url 'blog_create' %}">➕ Create New Blog</a>
+      <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+  {% endif %}
 
   <div class="container">
     <h1>📚 All Blog Posts</h1>

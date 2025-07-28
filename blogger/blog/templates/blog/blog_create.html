@@ -1,32 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Create Blog Post</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <style>
     body {
-      background: linear-gradient(to right, #f9fafb, #f1f5f9);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 2rem;
-      margin: 0;
+      background: linear-gradient(to right, #eef2f7, #fdfdfd);
+      padding: 3rem 1rem;
     }
 
     .form-container {
-      max-width: 720px;
+      max-width: 800px;
       margin: auto;
-      background: white;
+      background: #ffffff;
       padding: 3rem;
-      border-radius: 16px;
+      border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     }
 
     .form-container h2 {
       text-align: center;
-      margin-bottom: 2.5rem;
       color: #1f2937;
-      font-size: 2rem;
+      margin-bottom: 2rem;
     }
 
     form {
@@ -37,42 +36,62 @@
 
     label {
       font-weight: 600;
-      margin-bottom: 0.4rem;
       color: #374151;
+      margin-bottom: 0.4rem;
+      display: block;
     }
 
     input[type="text"],
-    textarea {
+    textarea,
+    select {
       width: 100%;
       padding: 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      background: #f9fafb;
       font-size: 1rem;
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+    }
+
+    input[type="file"] {
+      padding: 0.5rem;
+      border-radius: 8px;
     }
 
     input:focus,
-    textarea:focus {
-      border-color: #6366f1;
-      background: #fff;
+    textarea:focus,
+    select:focus {
       outline: none;
+      border-color: #6366f1;
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      background: #fff;
     }
 
     textarea {
-      min-height: 160px;
       resize: vertical;
+      min-height: 150px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+    }
+
+    .checkbox-group input {
+      margin-right: 0.5rem;
     }
 
     button {
-      padding: 0.85rem;
+      padding: 1rem;
       background: #4f46e5;
       color: white;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.1rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -81,33 +100,59 @@
       background: #4338ca;
     }
 
-    @media screen and (max-width: 600px) {
-      .form-container {
-        padding: 1.5rem;
-      }
+    #cover-preview {
+      max-width: 100%;
+      max-height: 200px;
+      display: none;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
 
-      .form-container h2 {
-        font-size: 1.5rem;
-      }
+    .error {
+      color: red;
+      font-size: 0.9rem;
     }
   </style>
 </head>
+
 <body>
   <div class="form-container">
-    <h2>Create New Blog Post</h2>
-    <form method="POST">
+    <h2>Create Blog Post</h2>
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {% for field in form %}
-        <div>
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}
-            <div style="color: red; font-size: 0.9rem;">{{ field.errors }}</div>
-          {% endif %}
-        </div>
+      <div>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="error">{{ field.errors }}</div>
+        {% endif %}
+      </div>
       {% endfor %}
-      <button type="submit">Publish Post</button>
+
+      <img id="cover-preview" src="#" alt="Cover Preview" />
+
+      <button type="submit">Publish Blog</button>
     </form>
   </div>
+
+  <script>
+    const coverInput = document.getElementById('id_cover_image');
+    const preview = document.getElementById('cover-preview');
+
+    if (coverInput) {
+      coverInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = 'block';
+        } else {
+          preview.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
+
 </html>

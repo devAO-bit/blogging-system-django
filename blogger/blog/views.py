@@ -18,11 +18,12 @@ def blog_detail(request, slug):
 @login_required
 def blog_create(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES) 
         if form.is_valid():
             blog = form.save(commit=False)
             blog.author = request.user
             blog.save()
+            form.save_m2m() 
             return redirect('blog_detail', slug=blog.slug)
     else:
         form = BlogForm()

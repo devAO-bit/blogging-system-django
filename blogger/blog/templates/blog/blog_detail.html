@@ -1,28 +1,91 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>{{ post.title }}</title>
   <link rel="stylesheet" href="{% static 'blog/style.css' %}">
-</head>
+  <style>
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
 
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .top-bar {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+
+    .top-bar a {
+      margin-left: 1rem;
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .meta {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cover-image {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .blog-post {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      color: #111827;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #4f46e5;
+      font-weight: 600;
+    }
+  </style>
+</head>
 <body>
   {% if user.is_authenticated %}
-  <p style="text-align:right;">
-    Welcome, {{ user.username }} |
-    <a href="{% url 'logout' %}">Logout</a>
-  </p>
+    <div class="top-bar">
+      Welcome, {{ user.username }} |
+      <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
   {% endif %}
 
   <div class="container">
     <h1>{{ post.title }}</h1>
     <div class="meta">By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}</div>
+
+    {% if post.cover_image %}
+      <img class="cover-image" src="{{ post.cover_image.url }}" alt="Cover Image">
+    {% endif %}
+
     <div class="blog-post">
       {{ post.content|linebreaks }}
     </div>
+
     <a class="back-link" href="{% url 'blog_list' %}">← Back to Blog List</a>
   </div>
 </body>
-
 </html>
