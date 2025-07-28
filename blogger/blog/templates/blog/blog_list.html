@@ -54,6 +54,21 @@
       font-size: 0.95rem;
       margin: 0.5rem 0 1rem;
     }
+
+    .btn {
+      display: inline-block;
+      background: #4f46e5;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-right: 0.5rem;
+    }
+
+    .btn:hover {
+      background: #4338ca;
+    }
   </style>
 </head>
 <body>
@@ -72,6 +87,13 @@
         <h2><a href="{% url 'blog_detail' slug=post.slug %}">{{ post.title }}</a></h2>
         <div class="meta">By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}</div>
         <p>{{ post.content|truncatewords:30 }}</p>
+        <div>
+          <a href="{% url 'blog_detail' slug=post.slug %}" class="btn">View</a>
+          {% if user.id == post.author.id %}
+            <a href="{% url 'blog_edit' slug=post.slug %}" class="btn">Edit</a>
+            <a href="{% url 'blog_delete' slug=post.slug %}" class="btn" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+          {% endif %}
+        </div>
       </div>
     {% empty %}
       <p>No blog posts available.</p>

@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+  <style>
+    body {
+      background: #f3f4f6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f2937;
+      margin-bottom: 2rem;
+    }
+
+    form label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+      color: #374151;
+    }
+
+    form input[type="text"],
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.3rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .btn-submit {
+      background-color: #3b82f6;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #2563eb;
+    }
+
+    .top-bar {
+      margin-bottom: 2rem;
+      text-align: right;
+    }
+
+    .top-bar a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 1rem;
+    }
+
+    .btn-cancel {
+    background-color: #3b82f6;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-cancel:hover {
+      background-color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="{% url 'blog_list' %}">← Back to All Blogs</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
+
+  <div class="container">
+    <h1>✏️ Edit Your Blog</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn-submit">Update Blog</button>
+      <a href="{% url 'blog_detail' slug=form.instance.slug %}" class="btn-cancel">Cancel</a>
+    </form>
+  </div>
+</body>
+</html>
