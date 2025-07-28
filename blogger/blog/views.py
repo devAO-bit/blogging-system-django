@@ -47,3 +47,9 @@ def blog_delete(request, slug):
     blog.is_deleted = True
     blog.save()
     return redirect('blog_list')
+
+
+@login_required
+def my_blogs(request):
+    blogs = BlogPost.objects.filter(author=request.user, is_deleted=False).order_by('-created_at')
+    return render(request, 'blog/my_blogs.html', {'blogs': blogs})

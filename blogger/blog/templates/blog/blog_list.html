@@ -76,6 +76,7 @@
     <div class="top-bar">
       Welcome, {{ user.username }} |
       <a href="{% url 'blog_create' %}">➕ Create New Blog</a>
+      <a href="{% url 'my_blogs' %}">📝 My Blogs</a>
       <a href="{% url 'logout' %}">🚪 Logout</a>
     </div>
   {% endif %}

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Blogs</title>
+  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+  <style>
+    body {
+      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .top-bar h1 {
+      color: #1f2937;
+    }
+
+    .create-btn {
+      background-color: #10b981;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .blog-post {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-post h2 a {
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .blog-post .meta {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    .actions a {
+      margin-right: 10px;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .actions a.delete {
+      color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <h1>📝 My Blog Posts</h1>
+      <div>
+        <a href="{% url 'blog_list' %}" class="create-btn" style="background-color:#6366f1; margin-right: 10px;">← Back to All Blogs</a>
+        <a href="{% url 'blog_create' %}" class="create-btn">+ Create Blog</a>
+      </div>
+    </div>
+
+    {% for post in blogs %}
+      <div class="blog-post">
+        <h2><a href="{% url 'blog_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+        <div class="meta">Created on {{ post.created_at|date:"F j, Y" }}</div>
+        <p>{{ post.content|truncatewords:30 }}</p>
+
+        <div class="actions">
+          <a href="{% url 'blog_detail' slug=post.slug %}">👁 View</a>
+          <a href="{% url 'blog_edit' slug=post.slug %}">✏️ Edit</a>
+          <a href="{% url 'blog_delete' slug=post.slug %}" class="delete">🗑 Delete</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>You haven’t written any blogs yet.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>
